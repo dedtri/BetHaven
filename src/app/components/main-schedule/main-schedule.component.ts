@@ -19,8 +19,7 @@ export class MainScheduleComponent implements OnDestroy {
     this.updateSubscription.unsubscribe();
   } 
   
-    constructor(private matchesService: MatchesService, private router: Router, 
-      private location: Location, 
+    constructor(private matchesService: MatchesService, 
       private el: ElementRef, private renderer: Renderer2) {
   
         this.updateSubscription = interval(1500).pipe(
@@ -33,7 +32,7 @@ export class MainScheduleComponent implements OnDestroy {
                 ...game,
               }
             });
-            // console.log(this.matches);
+            console.log(this.games);
             if (games)
             {
               this.Hideloader();
@@ -57,7 +56,22 @@ export class MainScheduleComponent implements OnDestroy {
               // Setting display of spinner
               // element to none
               this.renderer.setStyle(this.el.nativeElement.querySelector('#loading'), 'display', 'none');
-              this.renderer.setStyle(this.el.nativeElement.querySelector('#schedulecontainer'), 'display', 'block'); 
+              this.renderer.setStyle(this.el.nativeElement.querySelector('#schedulecontainer'), 'display', 'block');
+    }
+
+    showArchivedMatches() {
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#archivedMatches'), 'display', 'contents'); 
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#activeMatches'), 'display', 'none'); 
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#archivedMatchesButton'), 'display', 'none'); 
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#activeMatchesButton'), 'display', 'inline-block'); 
+    }
+
+    
+    showActiveMatches() {
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#archivedMatches'), 'display', 'none'); 
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#activeMatches'), 'display', 'contents'); 
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#archivedMatchesButton'), 'display', 'inline-block'); 
+      this.renderer.setStyle(this.el.nativeElement.querySelector('#activeMatchesButton'), 'display', 'none'); 
     }
 
 }
